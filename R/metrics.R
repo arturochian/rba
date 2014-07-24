@@ -1,6 +1,7 @@
 # What is ann?
 #cagr abd twr?
-?prod
+#?prod nice
+# What's n? ann= supuesto 252 días de trading
 cagr <- function(value, n, base=100, ann=252) {
   (value/base)^(ann / n) - 1
 }
@@ -24,17 +25,18 @@ annualized <- function(x, ann=12, compound=F) {
 }
 
 ##### VOLATILITY ####################
+## Why sqrt(ann)?
 sigma <- volatility <- vol <- std <- stdev <- StDev <- function(x, ann=12) {
   sqrt(ann) * sd(x)
 }
-
+# Why true?
 tr <- truerange <- TR <- function(hi, lo, cl) {
   clag = c(NA, cl[-length(cl)])
   trueHi = pmax(hi, clag, na.rm = FALSE)
   trueLo = pmin(lo, clag, na.rm = FALSE)
   trueHi - trueLo
 }
-
+library(TTR)
 #' @import TTR
 atr <- ATR <- function(hi, lo, cl, n=14, ma, ...) {
   tr = TR(hi, lo, cl)

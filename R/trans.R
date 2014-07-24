@@ -12,6 +12,6 @@ change <- function(x, na.pad=T) {
     diff.default(x)
 }
 
-print(prod(1:4))
+#print(prod(1:4))
 
-== print(gamma(8))
+#== print(gamma(8))
