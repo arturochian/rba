@@ -3,8 +3,9 @@
 setwd("~/GitHub/rba/data")
 library(data.table)
 OHLCV<-readRDS("OHLCV.rds") 
-#names(OHLCV)
-OHLCV<-data.table(OHLCV)
+class(OHLCV)
+names(OHLCV)
+#OHLCV<-data.table(OHLCV)
 #calc_returns("OHLCV")
 #help(":=")
 #calc_returns(GOOG)
@@ -35,6 +36,20 @@ calc_returns <- function(data) {
   require(quantmod)
   data[,Price:=getPrice(data)]
 }
+OHLCV2<-calc_returns(OHLCV)
+View(OHLCV2)
+?data.table
+calc_returns2 <- function(data) {
+  require(quantmod)
+  change <- function(x) {
+     x= diff.default(x)/x[-length(x)]
+  print(x)}
+  data[,Price:=getPrice(data)]
+  data[,Returns:=change(Price)]
+}
+calc_returns2(MSFT)
+View(MSFT)
+
 detect_cols(MSFT)
 
 calc_returns(MSFT)
@@ -43,5 +58,10 @@ source("~/GitHub/rba/R/trans.R") # calling pchange, change and RoR
 source("~/GitHub/rba/R/metrics.R") # calling some functions :)
 source("~/GitHub/rba/R/Returns.R") # calling some functions :)
 
-
+example(data.table) 
 MSFT[,change:=change(MSFT)]
+MSFT2<-returns(MSFT)
+
+MSFT2
+View(MSFT2)
+test.data.table()    

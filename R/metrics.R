@@ -1,7 +1,4 @@
-# What is ann?
-#cagr abd twr?
-#?prod nice
-# What's n? ann= supuesto 252 días de trading
+
 cagr <- function(value, n, base=100, ann=252) {
   (value/base)^(ann / n) - 1
 }
@@ -25,18 +22,17 @@ annualized <- function(x, ann=12, compound=F) {
 }
 
 ##### VOLATILITY ####################
-## Why sqrt(ann)?
 sigma <- volatility <- vol <- std <- stdev <- StDev <- function(x, ann=12) {
   sqrt(ann) * sd(x)
 }
-# Why true?
+
 tr <- truerange <- TR <- function(hi, lo, cl) {
   clag = c(NA, cl[-length(cl)])
   trueHi = pmax(hi, clag, na.rm = FALSE)
   trueLo = pmin(lo, clag, na.rm = FALSE)
   trueHi - trueLo
 }
-library(TTR)
+
 #' @import TTR
 atr <- ATR <- function(hi, lo, cl, n=14, ma, ...) {
   tr = TR(hi, lo, cl)
@@ -110,18 +106,18 @@ maxdd <- function(x) {
 avgdd <- function(x) {
   dd <- dd(x)
   prevdd <- c(0, dd[-length(dd)])
-
+  
   ddstarts = which( dd != 0 & prevdd == 0 )
   ddends = which( dd == 0 & prevdd != 0 )
   
   if(tail(ddends,1)!=length(dd))
     ddends <- c(ddends, length(dd)) # close last incomplete drawdown
-    
+  
   if(length(ddends) != length(ddstarts)) {
     cat(dd)
     stop(paste("Error calculating average drawdown. There are", length(ddstarts), "DD starts and ", length(ddends), "DD ends"))
   }
-
+  
   abs(mean(apply( cbind(ddstarts, ddends), 1, function(x){ min( dd[ x[1]:x[2] ]) } )))
 }
 
@@ -182,11 +178,11 @@ winrate <- function(x) {
 }
 
 winloss <- function(x, extreme=F) {
- avgwin(x, extreme=extreme)/abs(avgloss(x))
+  avgwin(x, extreme=extreme)/abs(avgloss(x))
 }
 
 expectancy <- function(x) {
-#   http://www.learningmarkets.com/determining-expectancy-in-your-trading/
+  #   http://www.learningmarkets.com/determining-expectancy-in-your-trading/
   winrate <- winrate(x)
   winloss <- winloss(x, extreme=F)
   lossratio <- 1 - winrate
