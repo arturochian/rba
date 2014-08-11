@@ -1,3 +1,4 @@
+#devtools::install_github('wch/R6',build_vignettes = FALSE)
 setwd("~/GitHub/rba/data")
 OHLCV<-readRDS("OHLCV.rds") 
 setwd("~/GitHub/rba/R")
@@ -12,7 +13,6 @@ library(R6)
 library(data.table)
 source("TimeSeries.R")
 sourceDir(getwd())
-#?R6Class
 
 TimeSeries$data<-OHLCV
 class(TimeSeries$data)
@@ -22,8 +22,24 @@ TimeSeries$new()
 Prices$new(data=OHLCV)
 Returns$new
 $data<-OHLCV
-devtools::install_github('wch/R6',build_vignettes = FALSE)
 
 sessionInfo()
 OHLCV<-Returns$new
 OHLCV
+
+a <- Returns$new(data=OHLCV)
+a
+a <- OHLC$new(data=OHLCV)
+names(OHLCV)
+a$monthly()
+
+
+
+r = Returns$new(data=OHLCV,
+                id.col=.id,
+                time.col=.time,
+                val.col="Return")
+r
+r$.value
+ls(Returns)
+135.2*2.85
