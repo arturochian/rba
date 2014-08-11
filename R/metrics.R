@@ -1,4 +1,3 @@
-
 cagr <- function(value, n, base=100, ann=252) {
   (value/base)^(ann / n) - 1
 }
